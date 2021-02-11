@@ -18,10 +18,12 @@ def write():
     return
 
 def load(location, accumulator):
+    """ Will take a memory location and load what ever is there into the accumulator  """
     accumulator = memory[location]
     return accumulator
 
 def store(location, accumulator):
+    """ Will take whatever is in the accumulator and will store it in the given location """
     memory[location]= accumulator
 
 
@@ -43,23 +45,24 @@ def main():
     for i in memory:
         i = str(i)
         op = int(i[0:2])
+        num = int(i[2:4])
         
         if op == 10:
-            print("read")
+            read()
         if op == 11:
-            print("write")
+            write(num)
         if op == 20:
-            print("load")
+            load(op)
         if op == 21:
-            print("store")
+            store(num)
         if op == 30:
-            print("add")
+            add()
         if op == 31:
-            print("subtract")
+            subtract()
         if op == 32:
-            print("divide")
+            divide()
         if op == 33:
-            print("multiply")
+            multiply()
         
     
 
