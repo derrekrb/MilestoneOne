@@ -50,9 +50,9 @@ def main():
         if op == 10:
             read()
         if op == 11:
-            write(num)
+            write()
         if op == 20:
-            load(op)
+            load(num)
         if op == 21:
             store(num)
         if op == 30:
