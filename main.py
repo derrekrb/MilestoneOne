@@ -15,12 +15,16 @@ def divide():
 
 
 def read(memoryDestination):
-    """Reads a word from the keyboard into a specific location in memory"""
+    """Asks the user for an integer and puts it into a specific location in memory"""
+
     userInput = input("Enter an integer: ")
     memory[memoryDestination] = userInput
+    return
 
 
 def write(memoryLocation):
+    '''Prints the contents of the given memory location to the screen'''
+    print(memory[memoryLocation])
     return
 
 
