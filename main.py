@@ -17,12 +17,12 @@ def read():
 def write():
     return
 
-def load(location, accumulator):
+def load(location):
     """ Will take a memory location and load what ever is there into the accumulator  """
     accumulator = memory[location]
     return accumulator
 
-def store(location, accumulator):
+def store(location):
     """ Will take whatever is in the accumulator and will store it in the given location """
     memory[location]= accumulator
 
