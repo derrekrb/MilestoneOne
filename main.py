@@ -1,53 +1,79 @@
-#chase
-def add(number, accumulator):
+"""
+CS2450: Milestone 1
+William Martell
+Tanner Erekson
+Derrek Buttars
+Matthew Palmer
+"""
+memory = []
+
+
+def add(memory_location, accumulator):
+    '''Adds a number from a specific locaiton in memory to the number in the accumulator.'''
+    
+    memory_value = memory[memory_location]
+    accumulator += memory_value
     return accumulator
 
 
-def subtract():
-    return 5
+def subtract(memory_location, accumulator):
+    '''Subtracts a number from a specific location in memory from the number in the accumulator.'''
+    
+    memory_value = memory[memory_location]
+    accumulator -= memory_value
+    return accumulator
 
-#derrek
-def multiply():
-    return
+
+def multiply(memory_location, accumulator):
+    '''Multiplies a number from a specific memory location to the number in the accumulator
+    and returns the accumulator'''
+    
+    memory_value = memory[memory_location]
+    accumulator *= memory_value
+    return accumulator
 
 
-def divide():
-    return
+def divide(memory_location, accumulator):
+    '''Divides the number in the accumulator by a number from a specific location in memory
+    and returns the accumulator.'''
+    
+    memory_value = memory[memory_location]
+    accumulator /= memory_value
+    return accumulator
 
-#matt
-def read(memoryDestination):
+
+def read(memory_location):
     """Asks the user for an integer and puts it into a specific location in memory"""
 
     userInput = input("Enter an integer: ")
-    memory[memoryDestination] = userInput
+    memory[memory_location] = userInput
     return
 
 
-def write(memoryLocation):
+def write(memory_location):
     '''Prints the contents of the given memory location to the screen'''
-
-    print(memory[memoryLocation])
+    
+    print(memory[memory_location])
     return
 
-#tanner
-def load(location):
+
+def load(memory_location, accumulator):
     """ Will take a memory location and load what ever is there into the accumulator  """
-    accumulator = memory[location]
+    accumulator = memory[memory_location]
     return accumulator
 
-def store(location):
+def store(memory_location, accumulator):
     """ Will take whatever is in the accumulator and will store it in the given location """
-    memory[location]= accumulator
-
+    memory[memory_location]= accumulator
+    return
 
 
 
 def main():
-    program_counter = 0
-    memory = []
     entry_command = 1
+    program_counter = 0
     accumulator = 0
-
+    
     while entry_command != -99999:
         entry_command = int((input(str(program_counter).zfill(2) + " ? ")))
         memory.append(entry_command)
@@ -57,26 +83,26 @@ def main():
     for i in memory:
         i = str(i)
         op = int(i[0:2])
-        num = int(i[2:4])
-
+        memory_location = int(i[2:4])
+        
         if op == 10:
-            read()
+            read(memory_location)
         if op == 11:
-            write()
+            write(memory_location)
         if op == 20:
-            load(num)
+            load(memory_location, accumulator)
         if op == 21:
-            store(num)
+            store(memory_location, accumulator)
         if op == 30:
-            add()
+            add(memory_location, accumulator)
         if op == 31:
-            subtract()
+            subtract(memory_location, accumulator)
         if op == 32:
-            divide()
+            divide(memory_location, accumulator)
         if op == 33:
-            multiply()
-
-
+            multiply(memory_location, accumulator)
+        
+    
 
     # for i in memory:
     # print(i)
