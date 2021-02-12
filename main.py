@@ -29,12 +29,16 @@ def write(memoryLocation):
     return
 
 
-def load():
-    return
+def load(location):
+    """ Will take a memory location and load what ever is there into the accumulator  """
+    accumulator = memory[location]
+    return accumulator
+
+def store(location):
+    """ Will take whatever is in the accumulator and will store it in the given location """
+    memory[location]= accumulator
 
 
-def store():
-    return
 
 
 def main():
@@ -48,8 +52,34 @@ def main():
         memory.append(entry_command)
         program_counter += 1
 
+
+    for i in memory:
+        i = str(i)
+        op = int(i[0:2])
+        num = int(i[2:4])
+        
+        if op == 10:
+            read()
+        if op == 11:
+            write()
+        if op == 20:
+            load(num)
+        if op == 21:
+            store(num)
+        if op == 30:
+            add()
+        if op == 31:
+            subtract()
+        if op == 32:
+            divide()
+        if op == 33:
+            multiply()
+        
+    
+
     # for i in memory:
     # print(i)
+
 
 
 if __name__ == "__main__":
