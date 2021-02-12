@@ -3,7 +3,7 @@ def add(number, accumulator):
 
 
 def subtract():
-    return 5
+    return 6
 
 
 def multiply():
