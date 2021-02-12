@@ -24,6 +24,7 @@ def read(memoryDestination):
 
 def write(memoryLocation):
     '''Prints the contents of the given memory location to the screen'''
+    
     print(memory[memoryLocation])
     return
 
