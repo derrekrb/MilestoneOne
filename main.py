@@ -1,3 +1,4 @@
+#chase
 def add(number, accumulator):
     return accumulator
 
@@ -5,7 +6,7 @@ def add(number, accumulator):
 def subtract():
     return 5
 
-
+#derrek
 def multiply():
     return
 
@@ -13,7 +14,7 @@ def multiply():
 def divide():
     return
 
-
+#matt
 def read(memoryDestination):
     """Asks the user for an integer and puts it into a specific location in memory"""
 
@@ -24,11 +25,11 @@ def read(memoryDestination):
 
 def write(memoryLocation):
     '''Prints the contents of the given memory location to the screen'''
-    
+
     print(memory[memoryLocation])
     return
 
-
+#tanner
 def load(location):
     """ Will take a memory location and load what ever is there into the accumulator  """
     accumulator = memory[location]
@@ -57,7 +58,7 @@ def main():
         i = str(i)
         op = int(i[0:2])
         num = int(i[2:4])
-        
+
         if op == 10:
             read()
         if op == 11:
@@ -74,8 +75,8 @@ def main():
             divide()
         if op == 33:
             multiply()
-        
-    
+
+
 
     # for i in memory:
     # print(i)
