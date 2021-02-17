@@ -84,13 +84,21 @@ def store(memory_location, accumulator):
 def clean_memory(lyst):
     for i in lyst:
         i = str(i)
-        if len(i) != 5:  # Checks if length of instruction is correct
-            if i != "-99999":
-                print(f"{i} is not a valid instruction")
+        valid = False
+        while valid == False:
+            if len(i) != 5:  # Checks if length of instruction is correct
+                if i != "-99999":
+                    print(f"{i} is not a valid instruction")
+                    memory[i] = input("Enter a valid instruction:")
+                    valid = False
 
-        elif i[0] != "+":  # Checks if instruction contain a + (Except if -99999)
-            if i != "-99999":
-                print(f"{i} is not a valid instruction")
+            elif i[0] != "+":  # Checks if instruction contain a + (Except if -99999)
+                if i != "-99999":
+                    print(f"{i} is not a valid instruction")
+                    memory[i] = input("Enter a valid instruction:")
+                    valid = False
+            valid = True
+
     return lyst
 
 
