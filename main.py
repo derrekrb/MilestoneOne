@@ -18,11 +18,10 @@ def add(memory_location, accumulator):
 
 def subtract(memory_location, accumulator):
     """Subtracts a number from a specific location in memory from the number in the accumulator."""
-
+    
     memory_value = memory[memory_location]
     accumulator -= memory_value
     return accumulator
-
 
 def multiply(memory_location, accumulator):
     """Multiplies a number from a specific memory location to the number in the accumulator
@@ -32,11 +31,10 @@ def multiply(memory_location, accumulator):
     accumulator *= memory_value
     return accumulator
 
-
 def divide(memory_location, accumulator):
     """Divides the number in the accumulator by a number from a specific location in memory
     and returns the accumulator."""
-
+    
     memory_value = memory[memory_location]
     accumulator /= memory_value
     return accumulator
@@ -72,14 +70,39 @@ def write(memory_location):
 
 def load(memory_location, accumulator):
     """ Will take a memory location and load what ever is there into the accumulator  """
+    
     accumulator = memory[memory_location]
     return accumulator
 
-
 def store(memory_location, accumulator):
     """ Will take whatever is in the accumulator and will store it in the given location """
+    
     memory[memory_location] = accumulator
     return
+
+def clean_memory(lyst):
+    index = 0
+    while index < len(lyst):
+        number = lyst[index]
+        valid = False
+        while valid == False:
+            if len(number) != 5:  # Checks if length of instruction is correct
+                if number != "-99999":
+                    print(f"{number} is not a valid instruction")
+                    number = input("Enter a valid instruction:")
+                    valid = False
+
+            elif number[0] != "+":  # Checks if instruction contain a + (Except if -99999)
+                if number != "-99999":
+                    print(f"{number} is not a valid instruction")
+                    number = input("Enter a valid instruction:")
+                    valid = False
+            else:
+                valid = True
+                lyst[index] = number
+        index += 1
+
+    return lyst
 
 def branch_neg(accumulator):
     if accumulator < 0:
