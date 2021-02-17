@@ -81,6 +81,18 @@ def store(memory_location, accumulator):
     memory[memory_location] = accumulator
     return
 
+def clean_memory(lyst):
+    for i in lyst:
+        i = str(i)
+        if len(i) != 5:  # Checks if length of instruction is correct
+            if i != "-99999":
+                print(f"{i} is not a valid instruction")
+
+        elif i[0] != "+":  # Checks if instruction contain a + (Except if -99999)
+            if i != "-99999":
+                print(f"{i} is not a valid instruction")
+    return lyst
+
 
 def main():
     entry_command = 1
@@ -95,40 +107,30 @@ def main():
         memory.append(entry_command)
         program_counter += 1
 
+    cleaned_memory = clean_memory(memory)
+    
+
+    #Where Matthew is going to take this information and make the run_program function with the cleaned_memory as a parameter.
     for i in memory:
-        i = str(i)
+        op = int(i[1:3])
+        memory_location = int(i[3:5])
 
-        if len(i) != 5:  # Checks if length of instruction is correct
-            if i != "-99999":
-                print(f"{i} is not a valid instruction")
-
-        elif i[0] != "+":  # Checks if instruction contain a + (Except if -99999)
-            if i != "-99999":
-                print(f"{i} is not a valid instruction")
-
-        else:
-            op = int(i[1:3])
-            memory_location = int(i[3:5])
-
-            if op == 10:
-                read(memory_location)
-            if op == 11:
-                write(memory_location)
-            if op == 20:
-                load(memory_location, accumulator)
-            if op == 21:
-                store(memory_location, accumulator)
-            if op == 30:
-                add(memory_location, accumulator)
-            if op == 31:
-                subtract(memory_location, accumulator)
-            if op == 32:
-                divide(memory_location, accumulator)
-            if op == 33:
-                multiply(memory_location, accumulator)
-
-    # for i in memory:
-    #     print(i)
+        if op == 10:
+            read(memory_location)
+        if op == 11:
+            write(memory_location)
+        if op == 20:
+            load(memory_location, accumulator)
+        if op == 21:
+            store(memory_location, accumulator)
+        if op == 30:
+            add(memory_location, accumulator)
+        if op == 31:
+            subtract(memory_location, accumulator)
+        if op == 32:
+            divide(memory_location, accumulator)
+        if op == 33:
+            multiply(memory_location, accumulator)
 
 
 if __name__ == "__main__":
