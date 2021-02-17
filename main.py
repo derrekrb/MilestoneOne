@@ -80,30 +80,6 @@ def store(memory_location, accumulator):
     memory[memory_location] = accumulator
     return
 
-def clean_memory(lyst):
-    index = 0
-    while index < len(lyst):
-        number = lyst[index]
-        valid = False
-        while valid == False:
-            if len(number) != 5:  # Checks if length of instruction is correct
-                if number != "-99999":
-                    print(f"{number} is not a valid instruction")
-                    number = input("Enter a valid instruction:")
-                    valid = False
-
-            elif number[0] != "+":  # Checks if instruction contain a + (Except if -99999)
-                if number != "-99999":
-                    print(f"{number} is not a valid instruction")
-                    number = input("Enter a valid instruction:")
-                    valid = False
-            else:
-                valid = True
-                lyst[index] = number
-        index += 1
-
-    return lyst
-
 def branch_neg(accumulator):
     if accumulator < 0:
         return True
