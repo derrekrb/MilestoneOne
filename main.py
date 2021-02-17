@@ -82,22 +82,26 @@ def store(memory_location, accumulator):
     return
 
 def clean_memory(lyst):
-    for i in lyst:
-        i = str(i)
+    index = 0
+    while index < len(lyst):
+        number = lyst[index]
         valid = False
         while valid == False:
-            if len(i) != 5:  # Checks if length of instruction is correct
-                if i != "-99999":
-                    print(f"{i} is not a valid instruction")
-                    memory[i] = input("Enter a valid instruction:")
+            if len(number) != 5:  # Checks if length of instruction is correct
+                if number != "-99999":
+                    print(f"{number} is not a valid instruction")
+                    number = input("Enter a valid instruction:")
                     valid = False
 
-            elif i[0] != "+":  # Checks if instruction contain a + (Except if -99999)
-                if i != "-99999":
-                    print(f"{i} is not a valid instruction")
-                    memory[i] = input("Enter a valid instruction:")
+            elif number[0] != "+":  # Checks if instruction contain a + (Except if -99999)
+                if number != "-99999":
+                    print(f"{number} is not a valid instruction")
+                    number = input("Enter a valid instruction:")
                     valid = False
-            valid = True
+            else:
+                valid = True
+                lyst[index] = number
+        index += 1
 
     return lyst
 
@@ -117,7 +121,8 @@ def main():
 
     cleaned_memory = clean_memory(memory)
     
-
+    for i in cleaned_memory:
+        print(i)
     #Where Matthew is going to take this information and make the run_program function with the cleaned_memory as a parameter.
     for i in memory:
         op = int(i[1:3])
