@@ -121,7 +121,7 @@ def branch_zero():
 def clean_memory():
     """Checks memory for valid words and prompts a change if invalid instruction is found"""
 
-    print("\n ---- Loading Memory... ----")
+    print("\n---- Loading Memory... ----")
 
     index = 0
     while index < len(memory):
@@ -159,8 +159,8 @@ def run_instructions():
     index = 0
     while index < len(memory):
         if memory[index]  == "-99999":
-
             break
+        
         op = int(memory[index][1:3])
         memory_location = int(memory[index][3:5])
 
