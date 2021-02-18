@@ -11,7 +11,7 @@ accumulator = 0
 
 
 def add(memory_location):
-    """Adds a number from a specific locaiton in memory to the number in the accumulator."""
+    """Adds a number from a specific location in memory to the number in the accumulator."""
 
     global accumulator
 
