@@ -97,13 +97,14 @@ def store(memory_location):
 
 
 def branch_neg():
+    """Will return True if the accumulator is less than zero, otherwise will return False"""
     if accumulator < 0:
         return True
     else:
         return False
 
-
 def branch_zero():
+    """Will return True if the accumulator is equal to zero, otherwise will return False"""
     if accumulator == 0:
         return True
     else:
@@ -138,34 +139,49 @@ def clean_memory():
 def run_instructions():
     """Runs the program written into the memory"""
 
-    for i in memory:
-        if i == "-99999":
+    index = 0
+    while index < len(memory):
+        if memory[index]  == "-99999":
             break
-        op = int(i[1:3])
-        memory_location = int(i[3:5])
+        op = int(memory[index][1:3])
+        memory_location = int(memory[index][3:5])
 
         if op == 10:
             read(memory_location)
+            index += 1
         elif op == 11:
             write(memory_location)
+            index += 1
         elif op == 20:
             load(memory_location)
+            index += 1
         elif op == 21:
             store(memory_location)
+            index += 1
         elif op == 30:
             add(memory_location)
+            index += 1
         elif op == 31:
             subtract(memory_location)
+            index += 1
         elif op == 32:
             divide(memory_location)
+            index += 1
         elif op == 33:
             multiply(memory_location)
+            index += 1
         elif op == 40:
-            pass
+            index = memory_location
         elif op == 41:
-            pass
+            if branch_neg() is True:
+                index = memory_location
+            else:
+                index += 1
         elif op == 42:
-            pass
+            if branch_zero() is True:
+                index = memory_location
+            else:
+                index += 1
         elif op == 43:  # Halt the program
             break
         # Else if not valid instructions
