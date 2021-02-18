@@ -5,39 +5,51 @@ Tanner Erekson
 Derrek Buttars
 Matthew Palmer
 """
-memory = ["+0000"]*100
+
+memory = ["+0000"] * 100
+accumulator = 0
 
 
-def add(memory_location, accumulator):
+def add(memory_location):
     """Adds a number from a specific locaiton in memory to the number in the accumulator."""
+
+    global accumulator
 
     memory_value = memory[memory_location]
     accumulator += memory_value
-    return accumulator
+    return
 
 
-def subtract(memory_location, accumulator):
+def subtract(memory_location):
     """Subtracts a number from a specific location in memory from the number in the accumulator."""
-    
+
+    global accumulator
+
     memory_value = memory[memory_location]
     accumulator -= memory_value
-    return accumulator
+    return
 
-def multiply(memory_location, accumulator):
+
+def multiply(memory_location):
     """Multiplies a number from a specific memory location to the number in the accumulator
     and returns the accumulator"""
 
+    global accumulator
+
     memory_value = memory[memory_location]
     accumulator *= memory_value
-    return accumulator
+    return
 
-def divide(memory_location, accumulator):
+
+def divide(memory_location):
     """Divides the number in the accumulator by a number from a specific location in memory
     and returns the accumulator."""
-    
+
+    global accumulator
+
     memory_value = memory[memory_location]
     accumulator /= memory_value
-    return accumulator
+    return
 
 
 def read(memory_location):
@@ -68,128 +80,121 @@ def write(memory_location):
     return
 
 
-def load(memory_location, accumulator):
+def load(memory_location):
     """ Will take a memory location and load what ever is there into the accumulator  """
-    
-    accumulator = memory[memory_location]
-    return accumulator
 
-def store(memory_location, accumulator):
+    global accumulator
+
+    accumulator = memory[memory_location]
+    return
+
+
+def store(memory_location):
     """ Will take whatever is in the accumulator and will store it in the given location """
-    
+
     memory[memory_location] = accumulator
     return
 
-def clean_memory(lyst):
-    index = 0
-    while index < len(lyst):
-        number = lyst[index]
-        valid = False
-        while valid == False:
-            if len(number) != 5:  # Checks if length of instruction is correct
-                if number != "-99999":
-                    print(f"{number} is not a valid instruction")
-                    number = input("Enter a valid instruction:")
-                    valid = False
 
-            elif number[0] != "+":  # Checks if instruction contain a + (Except if -99999)
-                if number != "-99999":
-                    print(f"{number} is not a valid instruction")
-                    number = input("Enter a valid instruction:")
-                    valid = False
-            else:
-                valid = True
-                lyst[index] = number
-        index += 1
-
-    return lyst
-
-def branch_neg(accumulator):
+def branch_neg():
     if accumulator < 0:
         return True
     else:
         return False
-def branch_zero(accumulator):
+
+
+def branch_zero():
     if accumulator == 0:
         return True
     else:
         return False
 
-def clean_memory(lyst):
-    index = 0
-    while index < len(lyst):
-        number = lyst[index]
-        valid = False
-        while valid == False:
-            if len(number) != 5:  # Checks if length of instruction is correct
-                if number != "-99999":
-                    print(f"{number} is not a valid instruction")
-                    number = input("Enter a valid instruction:")
-                    valid = False
 
-            elif number[0] != "+":  # Checks if instruction contain a + (Except if -99999)
-                if number != "-99999":
-                    print(f"{number} is not a valid instruction")
-                    number = input("Enter a valid instruction:")
-                    valid = False
+def clean_memory():
+    """Checks memory for valid words and prompts a change if invalid instruction is found"""
+
+    index = 0
+    while index < len(memory):
+        number = memory[index]
+        valid = False
+        while not (valid):
+            if (len(number) != 5) and (
+                number != "-99999"
+            ):  # Checks if length of instruction is correct
+                print(f"{number} is not a valid instruction")
+                number = str(input("Enter a valid instruction:"))
+            elif (number[0] != "+") and (
+                number != "-99999"
+            ):  # Checks if instruction contain a + (Except if -99999)
+                print(f"{number} is not a valid instruction")
+                number = str(input("Enter a valid instruction:"))
             else:
                 valid = True
-                lyst[index] = number
+                memory[index] = str(number)
         index += 1
+    return
 
-    return lyst
 
-def check_op(i):
-    op = int(i[1:3])
-    memory_location = int(i[3:5])
-    
-    if op == 10:
-        read(memory_location)
-    if op == 11:
-        write(memory_location)
-    if op == 20:
-        load(memory_location, accumulator)
-    if op == 21:
-        store(memory_location, accumulator)
-    if op == 30:
-        add(memory_location, accumulator)
-    if op == 31:
-        subtract(memory_location, accumulator)
-    if op == 32:
-        divide(memory_location, accumulator)
-    if op == 33:
-        multiply(memory_location, accumulator)
-    if op == 40:
-        pass
-    if op == 41:
-        pass
-    if op == 42:
-        pass
-        
+def run_instructions():
+    """Runs the program written into the memory"""
+
+    for i in memory:
+        if i == "-99999":
+            break
+        op = int(i[1:3])
+        memory_location = int(i[3:5])
+
+        if op == 10:
+            read(memory_location)
+        elif op == 11:
+            write(memory_location)
+        elif op == 20:
+            load(memory_location)
+        elif op == 21:
+            store(memory_location)
+        elif op == 30:
+            add(memory_location)
+        elif op == 31:
+            subtract(memory_location)
+        elif op == 32:
+            divide(memory_location)
+        elif op == 33:
+            multiply(memory_location)
+        elif op == 40:
+            pass
+        elif op == 41:
+            pass
+        elif op == 42:
+            pass
+        elif op == 43:  # Halt the program
+            break
+        # Else if not valid instructions
+
 
 def main():
     entry_command = 1
     program_counter = 0
-    accumulator = 0
     print(
         "~~ Instructions given in the UVsim must be in the format of +0000.  Ex. +1001 is a valid instruction ~~"
     )
 
     while entry_command != "-99999":
         entry_command = input(str(program_counter).zfill(2) + " ? ")
-        memory.append(entry_command)
+        memory[program_counter] = entry_command
         program_counter += 1
 
-    cleaned_memory = clean_memory(memory)
-    
-    for i in cleaned_memory:
-        print(i)
-    #Where Matthew is going to take this information and make the run_program function with the cleaned_memory as a parameter.
-    for i in memory:
-        check_op(i)
-            
+    clean_memory()
+    run_instructions()
 
-        
+    print("REGISTERS:\n")
+    print("Accumulator:    " + str(accumulator) + "\n")
+    print("Instruction Counter:    ")
+    print("InstructionRegister:    ")
+    print("Operation Code:         ")
+    print("Operand:                ")
+
+    for i in memory:
+        print(i)
 
 
 if __name__ == "__main__":
