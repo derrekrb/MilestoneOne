@@ -5,13 +5,16 @@ Tanner Erekson
 Derrek Buttars
 Matthew Palmer
 """
-memory = ["+0000"]*100
+
+memory = ["+0000"] * 100
 accumulator = 0
+
 
 def add(memory_location):
     """Adds a number from a specific locaiton in memory to the number in the accumulator."""
+
     global accumulator
-    
+
     memory_value = memory[memory_location]
     accumulator += memory_value
     return
@@ -19,6 +22,7 @@ def add(memory_location):
 
 def subtract(memory_location):
     """Subtracts a number from a specific location in memory from the number in the accumulator."""
+
     global accumulator
 
     memory_value = memory[memory_location]
@@ -29,6 +33,7 @@ def subtract(memory_location):
 def multiply(memory_location):
     """Multiplies a number from a specific memory location to the number in the accumulator
     and returns the accumulator"""
+
     global accumulator
 
     memory_value = memory[memory_location]
@@ -39,6 +44,7 @@ def multiply(memory_location):
 def divide(memory_location):
     """Divides the number in the accumulator by a number from a specific location in memory
     and returns the accumulator."""
+
     global accumulator
 
     memory_value = memory[memory_location]
@@ -76,6 +82,7 @@ def write(memory_location):
 
 def load(memory_location):
     """ Will take a memory location and load what ever is there into the accumulator  """
+
     global accumulator
 
     accumulator = memory[memory_location]
@@ -84,6 +91,7 @@ def load(memory_location):
 
 def store(memory_location):
     """ Will take whatever is in the accumulator and will store it in the given location """
+
     memory[memory_location] = accumulator
     return
 
@@ -93,6 +101,8 @@ def branch_neg():
         return True
     else:
         return False
+
+
 def branch_zero():
     if accumulator == 0:
         return True
@@ -101,15 +111,21 @@ def branch_zero():
 
 
 def clean_memory():
+    """Checks memory for valid words and prompts a change if invalid instruction is found"""
+
     index = 0
     while index < len(memory):
         number = memory[index]
         valid = False
-        while not(valid):
-            if (len(number) != 5) and (number != "-99999"):  # Checks if length of instruction is correct
+        while not (valid):
+            if (len(number) != 5) and (
+                number != "-99999"
+            ):  # Checks if length of instruction is correct
                 print(f"{number} is not a valid instruction")
                 number = str(input("Enter a valid instruction:"))
-            elif (number[0] != "+") and (number != "-99999"):  # Checks if instruction contain a + (Except if -99999)
+            elif (number[0] != "+") and (
+                number != "-99999"
+            ):  # Checks if instruction contain a + (Except if -99999)
                 print(f"{number} is not a valid instruction")
                 number = str(input("Enter a valid instruction:"))
             else:
@@ -120,12 +136,14 @@ def clean_memory():
 
 
 def run_instructions():
+    """Runs the program written into the memory"""
+
     for i in memory:
         if i == "-99999":
             break
         op = int(i[1:3])
         memory_location = int(i[3:5])
-        
+
         if op == 10:
             read(memory_location)
         elif op == 11:
@@ -148,7 +166,9 @@ def run_instructions():
             pass
         elif op == 42:
             pass
-        #Else if not valid instructions
+        elif op == 43:  # Halt the program
+            break
+        # Else if not valid instructions
 
 
 def main():
@@ -167,7 +187,7 @@ def main():
     run_instructions()
 
     print("REGISTERS:\n")
-    print("Accumulator:    " + str(accumulator) + '\n')
+    print("Accumulator:    " + str(accumulator) + "\n")
     print("Instruction Counter:    ")
     print("InstructionRegister:    ")
     print("Operation Code:         ")
@@ -176,7 +196,6 @@ def main():
     for i in memory:
         print(i)
 
-    
+
 if __name__ == "__main__":
     main()
-
