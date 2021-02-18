@@ -11,7 +11,7 @@ accumulator = 0
 
 
 def add(memory_location):
-    """Adds a number from a specific locaiton in memory to the number in the accumulator."""
+    """Adds a number from a specific location in memory to the number in the accumulator."""
 
     global accumulator
 
@@ -69,6 +69,11 @@ def read(memory_location):
             print("must be an integer between -9999 and +9999")
 
         else:
+            if userInput > 0:
+                userInput = str(userInput)
+                userInput = "+" + userInput.zfill(
+                    4
+                )  # Formats input to be the same as memory format
             memory[memory_location] = userInput
             return
 
@@ -98,6 +103,7 @@ def store(memory_location):
 
 def branch_neg():
     """Will return True if the accumulator is less than zero, otherwise will return False"""
+
     if accumulator < 0:
         return True
     else:
@@ -105,6 +111,7 @@ def branch_neg():
 
 def branch_zero():
     """Will return True if the accumulator is equal to zero, otherwise will return False"""
+
     if accumulator == 0:
         return True
     else:
@@ -114,34 +121,45 @@ def branch_zero():
 def clean_memory():
     """Checks memory for valid words and prompts a change if invalid instruction is found"""
 
+    print("\n ---- Loading Memory... ----")
+
     index = 0
     while index < len(memory):
         number = memory[index]
         valid = False
+
         while not (valid):
             if (len(number) != 5) and (
                 number != "-99999"
             ):  # Checks if length of instruction is correct
                 print(f"{number} is not a valid instruction")
                 number = str(input("Enter a valid instruction:"))
-            elif (number[0] != "+") and (
+
+            elif (number[0] not in ("+", "-")) and (
                 number != "-99999"
             ):  # Checks if instruction contain a + (Except if -99999)
                 print(f"{number} is not a valid instruction")
                 number = str(input("Enter a valid instruction:"))
+
             else:
                 valid = True
                 memory[index] = str(number)
         index += 1
+
+    print("---- Memory Loaded ----\n")
+
     return
 
 
 def run_instructions():
     """Runs the program written into the memory"""
-
+    
+    print("\n---- Running Program ----\n")
+    
     index = 0
     while index < len(memory):
         if memory[index]  == "-99999":
+
             break
         op = int(memory[index][1:3])
         memory_location = int(memory[index][3:5])
@@ -184,20 +202,21 @@ def run_instructions():
                 index += 1
         elif op == 43:  # Halt the program
             break
-        # Else if not valid instructions
 
 
 def main():
     entry_command = 1
     program_counter = 0
+
     print(
-        "~~ Instructions given in the UVsim must be in the format of +0000.  Ex. +1001 is a valid instruction ~~"
+        "---- Instructions given in the UVsim must be in the format of +0000.  Ex. +1001 is a valid instruction ----"
     )
 
     while entry_command != "-99999":
         entry_command = input(str(program_counter).zfill(2) + " ? ")
-        memory[program_counter] = entry_command
-        program_counter += 1
+        if entry_command != "-99999":
+            memory[program_counter] = entry_command
+            program_counter += 1
 
     clean_memory()
     run_instructions()
