@@ -13,6 +13,7 @@ instruction_register = ""
 operation_code = 0
 operand = 0
 
+
 def add(memory_location):
     """Adds a number from a specific location in memory to the number in the accumulator."""
 
@@ -21,7 +22,7 @@ def add(memory_location):
     memory_value = memory[memory_location]
     accumulator += memory_value
     if accumulator > 9999 or accumulator < -9999:
-        raise ValueError("Your accumulator number exceeds the range available.")     
+        raise ValueError("Your accumulator number exceeds the range available.")
     return
 
 
@@ -33,7 +34,7 @@ def subtract(memory_location):
     memory_value = memory[memory_location]
     accumulator -= memory_value
     if accumulator > 9999 or accumulator < -9999:
-        raise ValueError("Your accumulator number exceeds the range available.")    
+        raise ValueError("Your accumulator number exceeds the range available.")
     return
 
 
@@ -46,7 +47,7 @@ def multiply(memory_location):
     memory_value = memory[memory_location]
     accumulator *= memory_value
     if accumulator > 9999 or accumulator < -9999:
-        raise ValueError("Your accumulator number exceeds the range available.")    
+        raise ValueError("Your accumulator number exceeds the range available.")
     return
 
 
@@ -59,7 +60,7 @@ def divide(memory_location):
     memory_value = memory[memory_location]
     accumulator /= memory_value
     if accumulator > 9999 or accumulator < -9999:
-        raise ValueError("Your accumulator number exceeds the range available.")    
+        raise ValueError("Your accumulator number exceeds the range available.")
     return
 
 
@@ -78,10 +79,10 @@ def read(memory_location):
             print("must be an integer between -9999 and +9999")
 
         else:
-                #userInput = str(userInput)
-                #userInput = "+" + userInput.zfill(
-                    #4
-                #)   Formats input to be the same as memory format
+            # userInput = str(userInput)
+            # userInput = "+" + userInput.zfill(
+            # 4
+            # )   Formats input to be the same as memory format
             memory[memory_location] = userInput
             return
 
@@ -89,7 +90,9 @@ def read(memory_location):
 def write(memory_location):
     """Prints the contents of the given memory location to the screen"""
 
-    print(f'Contents of memory location {memory_location} is {memory[memory_location]}.')
+    print(
+        f"Contents of memory location {memory_location} is {memory[memory_location]}."
+    )
     return
 
 
@@ -116,6 +119,7 @@ def branch_neg():
         return True
     else:
         return False
+
 
 def branch_zero():
     """Will return True if the accumulator is equal to zero, otherwise will return False"""
@@ -161,18 +165,17 @@ def clean_memory():
 
 def run_instructions():
     """Runs the program written into the memory"""
+
     global instruction_counter
     global instruction_register
     global operation_code
     global operand
-    
-    print("\n---- Running Program ----\n")
-    
+
     index = 0
-    while index < (len(memory)-1):
-        if memory[index]  == "-99999":
+    while index < (len(memory) - 1):
+        if memory[index] == "-99999":
             break
-        
+
         op = int(memory[index][1:3])
         memory_location = int(memory[index][3:5])
 
@@ -228,7 +231,7 @@ def run_instructions():
             operation_code = op
             operand = memory_location
             break
-        
+
         else:
             instruction_counter += 1
             instruction_register = memory[index]
@@ -256,22 +259,24 @@ def main():
             program_counter += 1
 
     clean_memory()
-    run_instructions()
 
-    print("REGISTERS:")
+    print("---- Running Program ----\n")
+    run_instructions()
+    print("\n---- Program Finished ----")
+
+    print("\nREGISTERS:")
     print("Accumulator:            " + str(accumulator))
     print("Instruction Counter:    " + str(instruction_counter))
     print("InstructionRegister:    " + instruction_register)
     print("Operation Code:         " + str(operation_code).zfill(2))
     print("Operand:                " + str(operand).zfill(2))
 
-
     print("Memory:")
     print("       00     01     02     03     04     05     06     07     08     09")
     tens = 0
     i = 0
     index = 0
-    
+
     while i < len(memory):
         if isinstance(memory[i], int):
             if memory[i] >= 0:
@@ -281,13 +286,17 @@ def main():
             else:
                 memory[i] = str(memory[i])
                 memory[i] = memory[i].zfill(5)
-                i += 1   
-        else: 
+                i += 1
+        else:
             i += 1
-    
 
     while index < len(memory):
-        print(f'{str(tens).zfill(2)}  {memory[index]}  {memory[index+1]}  {memory[index+2]}  {memory[index+3]}  {memory[index+4]}  {memory[index+5]}  {memory[index+6]}  {memory[index+7]}  {memory[index+8]}  {memory[index+9]}')
+        print(
+            f"{str(tens).zfill(2)}  {memory[index]}  {memory[index+1]}  "
+            f"{memory[index+2]}  {memory[index+3]}  {memory[index+4]}  "
+            f"{memory[index+5]}  {memory[index+6]}  {memory[index+7]}  "
+            f"{memory[index+8]}  {memory[index+9]}"
+        )
         index += 10
         tens += 10
 
