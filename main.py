@@ -46,6 +46,7 @@ def multiply(memory_location):
 
     memory_value = memory[memory_location]
     accumulator *= memory_value
+    accumulator = int(accumulator)
     if accumulator > 9999 or accumulator < -9999:
         raise ValueError("Your accumulator number exceeds the range available.")
     return
@@ -59,6 +60,7 @@ def divide(memory_location):
 
     memory_value = memory[memory_location]
     accumulator /= memory_value
+    accumulator = int(accumulator)
     if accumulator > 9999 or accumulator < -9999:
         raise ValueError("Your accumulator number exceeds the range available.")
     return
